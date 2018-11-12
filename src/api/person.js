@@ -1,26 +1,25 @@
-
-export const people = async() => {
-  try {
-    let res = await fetch('/person/all' ) 
-    return res.json()
-  } catch (error) {
-    console.log( error.message )
-    return error
-  }
+export const postPerson = async (personObj) => {
+	try {
+		const data = await fetch('/person', {
+			method: "POST",
+			body: JSON.stringify(personObj)
+		})
+		return data.json()
+		
+	} catch (error) {
+		console.error(error)
+		/* show error snackbar */
+	}
 }
 
-export const person = async data => {
-  try {
-    let res = await fetch('/', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify(data),
-    }) 
-    return res.json()
-  } catch (error) {
-    console.log( error.message )
-    return error
-  }
+export const allPeople = async () => {
+	try {
+		const data = await fetch('/person/all')
+		return data.json()
+		
+	} catch (error) {
+		console.error(error)
+		/* show error snackbar */
+	}
 }
+
