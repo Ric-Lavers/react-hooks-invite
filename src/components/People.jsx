@@ -10,25 +10,23 @@ const toLocaleString = dateString => {
 }
 
 const People = ({}) => {
-	const people = useFetch(allPeople, [{}])
-
+	const [people] = useFetch(allPeople, [{}])
+console.log(people)
 	return(
-		<div  style={{ display: 'flex', justifyContent: 'space-between'}}>
+		<div className="attendance-grid">
 	
 				{people.map(person => 
 					<div style={{ width: '100%' }}>	
-
-								<Tooltip
-									title={toLocaleString(person.created_on)}
-									placement="top-end"
-								> 
-									<Paper >
-										<div >{person.name}</div>
-										<div >{person.email}</div>
-										<div >{person.phoneNumber}</div>
-									</Paper>
-								</Tooltip>
-							
+						<Tooltip
+							title={toLocaleString(person.created_on)}
+							placement="top-end"
+						> 
+							<Paper >
+								<div >{person.name}</div>
+								<div >{person.email}</div>
+								<div >{person.phoneNumber}</div>
+							</Paper>
+						</Tooltip>
 					</div>
 				)}
 		</div>

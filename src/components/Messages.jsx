@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Avatar, Tooltip } from '@material-ui/core'
+import React, { Fragment, useEffect, useState } from 'react'
+import { Avatar, Tooltip, TextField, Button } from '@material-ui/core'
 
-import { getAllMessages } from '../api/messages'
+import { getAllMessages, postMessage } from '../api/messages'
 
 export const styles = {
 	container: {
@@ -34,35 +34,86 @@ export const styles = {
 	}
 }
 
-export const useFetch = (fetchFunc, defaultData) => {
+export const useFetch = (fetchFunc, defaultData, input) => {
 	const [data, updateData] = useState(defaultData)
 
 	useEffect(async () => {
-			const data = await fetchFunc()
+			const data = await fetchFunc(input)
 			updateData(data)
 	}, [fetchFunc])
 
-	return data
+	return [data, updateData]
 }
 
-const Messages = ({}) => {
-	const messages = useFetch(getAllMessages, [{}])
+const WriteMessage = ({postMsg}) => {
+	const [ value, setValue ] = useState('')
+
+	return (
+		<div className="flex write-message hundred"  >
+			<TextField
+				className="hundred" 
+				id="write-message__input"
+				multiline
+				rowsMax="4"
+				value={value}
+				onChange={({target}) => setValue(target.value)}
+				margin="normal"
+				variant="outlined"
+			/>
+			<Button
+				className="hundred" 
+				onClick={() =>postMsg(value)}
+				id="write-message__submit"
+				variant="contained"
+				color="primary"
+			>
+				Send
+			</Button>
+		</div>
+	)
+}
+
+const Messages = () => {
+	const [messages, updateData] = useFetch(getAllMessages, [{}])
+	const [id, setId] = useState(localStorage.getItem('personId'))
+
+	const handlePostMsg = async (value) => {
+		let personId = id
+		let message;
+		try {
+			const postedMsg= await postMessage( {
+				name: localStorage.getItem('name') || '',
+				message: value,
+				personId: personId,
+			})
+			message = postedMsg
+			updateData([...messages, message])
+		} catch (error) {
+			console.error(error)
+		}
+
+	}
+	
 
 	return(
-		<div style={styles.container}>
-			<ul style={styles.messages}>
-				{messages.map(msg => 
-					<>
-						<Tooltip
-							title={new Date(msg.created_on).toLocaleString()}
-							placement="top-end"
-						>
-							<div style={styles.avatar}>{msg.name}</div>
-						</Tooltip>
-						<li style={styles.li}>{msg.message}</li>
-					</>
-					)}
-			</ul>
+		<div className="hundred">
+			<div style={styles.container}>
+				<ul className="block hundred" >
+					{messages.map(msg => 
+						<div key={msg._id} className="message flex">
+							<Tooltip
+								title={new Date(msg.created_on).toLocaleString()}
+								placement="top-end"
+							>
+								<div style={styles.avatar}>{id === msg.personId ? 'You' : msg.name}
+								</div>
+							</Tooltip>
+							<li style={styles.li}>{msg.message}</li>
+						</div>
+						)}
+				</ul>
+			</div>
+			<WriteMessage postMsg={value => handlePostMsg(value)} />
 		</div>
 	)
 }

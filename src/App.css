@@ -2,6 +2,43 @@
   text-align: center;
   padding: 32px;
 }
+.flex {
+  display: flex;
+  flex-wrap: 'wrap';
+}
+.block {
+  display: block;
+}
+.attendance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 12px;
+  grid-gap: 8px;
+}
+.message {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 5fr;
+  text-align: left;
+  margin-top: 12px
+}
+/* .message:first-child {
+  width: 20%
+}
+.message:last-child {
+  width: 80%
+} */
+
+#write-message__input {
+  width: 80%;
+}
+#write-message__submit {
+  width: 20%;
+}
+
+.hundred {
+  width: 100%;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

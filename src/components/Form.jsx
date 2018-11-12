@@ -70,6 +70,7 @@ const Form = ({}) => {
 
 	const handleSubmit = async() => {
 		let sendSuccessful = await postPerson(form)
+		localStorage.setItem('personId', sendSuccessful._id)
 		setSent(!!sendSuccessful)
 	}
 
