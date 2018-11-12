@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
 	FormGroup,
 	TextField,
@@ -7,8 +7,7 @@ import {
 	Card
 	} from '@material-ui/core';
 import {isEmail, isMobilePhone} from 'validator';
-import AutoSizer from 'react-virtualized-auto-sizer';
-
+import { postPerson } from '../api/person'
 
 
 const useInput = inital => {
@@ -24,6 +23,9 @@ const useInput = inital => {
 			case 'phoneNumber':
 				newForm[name].valid = value === "" ? true : isMobilePhone(value, ['en-AU'])
 				break;
+			case 'name':
+				localStorage.setItem('name', value)
+				break;
 			default:
 				break;
 		}
@@ -38,26 +40,34 @@ const useInput = inital => {
 }
 
 const Form = ({}) => {
+	const [ sent, setSent ] = useState(true)
 
 	const {form, onChange} = useInput({
 		name: {
-			value:'',
+			value:'name',
 			valid: true,
 		},
 		phoneNumber: {
-			value:'',
+			value:'0412345678',
 			valid: true,
 		},
 		email: {
-			value:'',
+			value:'mail@mail.com',
 			valid: true,
 		},
 	})
 
+	const handleSubmit = async() => {
+		let sendSuccessful = await postPerson(form)
+		setSent(!!sendSuccessful)
+	}
+
 	return (
 		<Card style={{ textAlign: 'left',  height: '100%' }} >
-			<CardContent style={{  height: '100%' }}>
-				<FormGroup onChange={onChange} style={{  height: 'calc(100% - 48px)', justifyContent: 'space-between' }} >
+			<CardContent style={Object.assign({  height: '100%' }, (sent ) ? {border: '1px solid blue'} : {border: '1px solid red'})}>
+				<FormGroup 
+					onChange={onChange} 
+					style={{  height: 'calc(100% - 48px)', justifyContent: 'space-between' }} >
 				
 					<TextField required
 						label="Name"
@@ -80,7 +90,7 @@ const Form = ({}) => {
 						value={form.email.value}
 						error={!form.email.valid }
 					/>
-					<Button type="submit" variant="contained" color="primary">
+					<Button onClick={() => handleSubmit()} type="submit" variant="contained" color="primary">
 						Submit
 					</Button>
 					</FormGroup>
