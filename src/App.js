@@ -5,7 +5,6 @@ import { Grid, Paper } from '@material-ui/core'
 
 import Form from './components/Form';
 import Details from './components/Details';
-import Attendance from './components/Attendance';
 import Messages from './components/Messages';
 import People from './components/People';
 
@@ -23,11 +22,6 @@ class App extends Component {
               <Details/>
             </Paper>
           </Grid>
-          <Grid item xs={12} >
-            <Paper style={{ height: '100%' }} >
-              <Attendance/>
-            </Paper>
-          </Grid>
           <Grid item xs={12}>
             <Paper style={{ height: '100%' }} >
               <Messages/>
@@ -38,6 +32,9 @@ class App extends Component {
               <People/>
             </Paper>
           </Grid>
+          
+          
+
       </Grid>
     );
   }
