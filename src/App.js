@@ -5,11 +5,12 @@ import { Grid, Paper } from '@material-ui/core'
 
 import Form from './components/Form';
 import Details from './components/Details';
+import Attendance from './components/Attendance';
 
 class App extends Component {
   render() {
     return (
-      <Grid  className="App" container spacing={24} style={{ border: '2px solid blue' }} >
+      <Grid  className="App" container spacing={24} >
           <Grid item xs={12} sm={6}>
             <Paper style={{ height: '100%' }} >
               <Form/>
@@ -18,6 +19,11 @@ class App extends Component {
           <Grid item xs={12} sm={6}>
             <Paper style={{ height: '100%' }} >
               <Details/>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} >
+            <Paper style={{ height: '100%' }} >
+              <Attendance/>
             </Paper>
           </Grid>
       </Grid>
