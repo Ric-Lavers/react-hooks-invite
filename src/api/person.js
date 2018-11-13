@@ -14,7 +14,7 @@ export const postPerson = async (personObj) => {
 
 export const allPeople = async () => {
 	try {
-		const data = await fetch('/person/all')
+		const data = await fetch('https://rics-server.now.sh/person/all')
 		return data.json()
 		
 	} catch (error) {

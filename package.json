@@ -25,5 +25,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "https://rics-server.now.sh"
+  "proxy": "https://rics-server.now.sh/"
 }
