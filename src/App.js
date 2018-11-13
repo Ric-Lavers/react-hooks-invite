@@ -8,6 +8,7 @@ import Details from './components/Details';
 import Messages from './components/Messages';
 import People from './components/People';
 
+
 class App extends Component {
   render() {
     return (
