@@ -7,10 +7,12 @@ import {
 	CardContent,
 	Card,
 	Checkbox,
+	CircularProgress,
 	} from '@material-ui/core';
 import {isEmail, isMobilePhone} from 'validator';
 import { postPerson } from '../api/person'
 import { ReactComponent as Bed } from '../images/bed.svg'
+import { ReactComponent as SingleBed } from '../images/single-bed.svg'
 import { ReactComponent as Couch } from '../images/couch.svg'
 import { ReactComponent as Car } from '../images/car.svg'
 
@@ -18,6 +20,8 @@ const useValidate = inital => {
 	const [validated, setValid] = useState(inital)
 	
 	const handleChange = e => {
+		if ( !e.target ){return};
+
 		let { name, value } = e.target
 		let isValid = {...validated}
 		switch (name) {
@@ -42,46 +46,53 @@ const useValidate = inital => {
 }
 
 const useInput = inital => {
-	const [form, setValue] = useState(inital)
+	const [form, setForm] = useState(inital)
 
 	const onChange  = e => {
 		let { name, value, checked } = e.target
 		if (value === 'true' || value === 'false') {
 			value = checked
 		}
-		setValue( {...form, [name]:value} )
+		setForm( {...form, [name]:value} )
 	}
 
 	return {
-		form, setValue, onChange,
+		form, setForm, onChange,
 	}
 }
 
-const Form = ({}) => {
-	const [ sent, setSent ] = useState(true)
-	const {form, onChange} = useInput({
+const Form = () => {
+	const initalForm = {
 		name: '',
 		phoneNumber: '',
 		email: '',
 		bed: false,
 		car: false,
-	})
-	const [ validated, setValid ] = useValidate({
+	}
+	const initalValidiated = {
 		name: true,
 		phoneNumber: true,
 		email: true,
-	})
+	}
+	const [ sent, setSent ] = useState(true)
+	const [ isLoading, setLoading ] = useState(true)
+	const {form, onChange, setForm } = useInput(initalForm)
+	const [ validated, setValid ] = useValidate(initalValidiated)
 
 	const handleChange = event => {
+		
 		onChange(event)
 		setValid(event)
 	}
 
 
 	const handleSubmit = async() => {
+		setLoading(true)
 		let sendSuccessful = await postPerson(form)
 		localStorage.setItem('personId', sendSuccessful._id)
 		setSent(!!sendSuccessful)
+		if (!!sendSuccessful){ setForm(initalForm); setValid(initalValidiated)};
+		setLoading(false)
 	}
 
 	return (
@@ -126,7 +137,9 @@ const Form = ({}) => {
 						<div>
 							<Bed/>
 							<Bed/>
-							<Bed/>
+							<SingleBed/>
+							<SingleBed/>
+							<Couch/>
 							<Couch/>
 						</div>
 					 </div>
@@ -143,8 +156,11 @@ const Form = ({}) => {
 						/>
 						<Car />
 					 </div>
-					<Button onClick={() => handleSubmit()} type="submit" variant="contained" color="primary">
-						Submit
+					<Button  onClick={() => handleSubmit()} type="submit" variant="contained" color="primary">
+						{isLoading	
+							? 'Submit'
+							: <CircularProgress color="white" />
+						}
 					</Button>
 					</FormGroup>
 				</CardContent>

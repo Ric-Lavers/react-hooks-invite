@@ -9,16 +9,6 @@ export const styles = {
 		display: 'flex',
 		justifyContent: 'space-between',
 	},
-	avatar: {
-		backgroundColor: 'orange',
-		height: '1.7em',
-		fontSize: '1.5em',
-		borderRadius: '1.5em',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		padding: '0.5em',
-	},
 	messages: {
 		display: 'flex',
 		width: '80%',
@@ -42,8 +32,13 @@ const WriteMessage = ({postMsg}) => {
 	const [ value, setValue ] = useState('')
 	const [ tooLong, isTooLong ] = useState(false)
 
+	const handleSubmit = e => {
+		e.preventDefault()
+		postMsg(value)
+	}
+
 	return (
-		<form onSubmit={() =>postMsg(value)} className="flex write-message hundred" >
+		<form onSubmit={handleSubmit} className="flex write-message hundred" >
 			<TextField
 				style={ tooLong ? styles.error : {} }
 				className="hundred write-message__input"
@@ -99,21 +94,30 @@ const Messages = () => {
 		<>
 			<h2>Message Board</h2>
 			<div className="hundred">
-				<div style={styles.container}>
-					<ul className="block hundred" >
-						{messages.map(msg => 
-							<div key={msg._id} className="message flex">
-								<Tooltip
-									title={new Date(msg.created_on).toLocaleString()}
-									placement="top-end"
-								>
-									<div style={styles.avatar}>{id === msg.personId ? 'You' : msg.name}
-									</div>
-								</Tooltip>
-								<li style={styles.li}>{msg.message}</li>
-							</div>
-							)}
-					</ul>
+				<div 
+				className="message-container">
+					{messages.map(msg => 
+						<div key={msg._id}
+							className={`message ${id === msg.personId? 'you':''}`}
+						>
+						{id === msg.personId &&
+							<>
+								<div/>
+								<p style={styles.li}>{msg.message}</p>
+							</>
+						}
+							<Tooltip
+								title={new Date(msg.created_on).toLocaleString()}
+								placement="top-end"
+							>
+								<div className="avatar">{id === msg.personId ? 'You' : msg.name}
+								</div>
+							</Tooltip>
+							{id !== msg.personId &&
+								<p style={styles.li}>{msg.message}</p>
+							}
+						</div>
+						)}
 				</div>
 				<WriteMessage postMsg={value => handlePostMsg(value)} />
 			</div>
