@@ -9,15 +9,15 @@ import Details from './components/Details';
 class App extends Component {
   render() {
     return (
-      <Grid  className="App" container spacing={24} style={{ border: '2px solid blue' }} >
+      <Grid  className="App" container spacing={24}  >
           <Grid item xs={12} sm={6}>
             <Paper style={{ height: '100%' }} >
-              <Form/>
+              <Details/>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper style={{ height: '100%' }} >
-              <Details/>
+              <Form/>
             </Paper>
           </Grid>
       </Grid>
