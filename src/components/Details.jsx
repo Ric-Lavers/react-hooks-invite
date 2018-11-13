@@ -8,15 +8,15 @@ const details  = [
 	},
 	{
 		title: 'Location',
-		body: 'Merton World Square, Sydney'
+		body: 'Merton Service Appartemnts, Pitt st, Sydney CBD'
 	},
 	{
 		title: 'Time',
-		body: 'bout 6pm, or earlier'
+		body: 'checkin @ 2pm \nbut really like from 6pm'
 	},
 	{
 		title: 'Also',
-		body: 'BYO \n\n'
+		body: 'BYO'
 	},
 ]
 

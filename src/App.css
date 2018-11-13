@@ -1,13 +1,17 @@
 .App {
   text-align: center;
   padding: 32px;
+  white-space: pre;
 }
 .flex {
   display: flex;
-  flex-wrap: 'wrap';
+  /* flex-wrap: 'wrap'; */
 }
 .block {
   display: block;
+}
+.hide {
+  display: none;
 }
 .attendance-grid {
   display: grid;
@@ -28,16 +32,38 @@
 .message:last-child {
   width: 80%
 } */
-
-#write-message__input {
-  width: 80%;
+.TEST {
+  border: 1px solid red !important;
 }
+
 #write-message__submit {
   width: 20%;
 }
+.too-long {
+  width: 10%;
+}
+
 
 .hundred {
   width: 100%;
+}
+
+.form-control {
+  display: flex;
+  justify-content: space-between;
+}
+.form-control img {
+  height: 32px;
+  fill: grey;
+}
+.form-control svg {
+  height: 32px;
+}
+.grey {
+  fill: #999;
+}
+.black {
+  fill: #000
 }
 
 .App-logo {

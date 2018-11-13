@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Tooltip, Grid, Paper } from '@material-ui/core'
 
 import { allPeople } from '../api/person'
@@ -10,34 +10,42 @@ const toLocaleString = dateString => {
 }
 
 const People = ({}) => {
-	const [people] = useFetch(allPeople, [{}])
-console.log(people)
+
+	const [ people, setPeople ] = useState([])
+	useEffect( async () => {
+		try {
+			let peopleData = await allPeople()
+			setPeople(peopleData)
+		} catch(e) {
+			console.error(e)
+		}
+	}, [] )
+
 	return(
-		<div className="attendance-grid">
-	
-				{people.map(person => 
-					<div style={{ width: '100%' }}>	
-						<Tooltip
-							title={toLocaleString(person.created_on)}
-							placement="top-end"
-						> 
+		<>
+			<h2>Attendees</h2>
+			<div className="attendance-grid">
+					{people.map(person => 
+						<div style={{ width: '100%' }}>	
 							<Paper >
-								<div >{person.name}</div>
-								<div >{person.email}</div>
-								<div >{person.phoneNumber}</div>
+								<Fragment>
+									<div >
+										<Tooltip
+											title={`RSVP @ ${toLocaleString(person.created_on)}`}
+											placement="top"
+										> 
+											<span>{person.name}</span>
+										</Tooltip>
+									</div>
+									<div >{person.email}</div>
+									<div >{person.phoneNumber}</div>
+								</Fragment>
 							</Paper>
-						</Tooltip>
-					</div>
-				)}
-		</div>
+						</div>
+					)}
+			</div>
+		</>
 	)
 }
 
-/* <Grid
-	xs={12}
-	spacing={24}
-	container
-	direction="row"
->
-	</Grid> */
 export default People;

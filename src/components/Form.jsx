@@ -1,13 +1,18 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import {
 	FormGroup,
+	FormControlLabel,
 	TextField,
 	Button,
 	CardContent,
-	Card
+	Card,
+	Checkbox,
 	} from '@material-ui/core';
 import {isEmail, isMobilePhone} from 'validator';
 import { postPerson } from '../api/person'
+import { ReactComponent as Bed } from '../images/bed.svg'
+import { ReactComponent as Couch } from '../images/couch.svg'
+import { ReactComponent as Car } from '../images/car.svg'
 
 const useValidate = inital => {
 	const [validated, setValid] = useState(inital)
@@ -40,7 +45,10 @@ const useInput = inital => {
 	const [form, setValue] = useState(inital)
 
 	const onChange  = e => {
-		let { name, value } = e.target
+		let { name, value, checked } = e.target
+		if (value === 'true' || value === 'false') {
+			value = checked
+		}
 		setValue( {...form, [name]:value} )
 	}
 
@@ -55,6 +63,8 @@ const Form = ({}) => {
 		name: '',
 		phoneNumber: '',
 		email: '',
+		bed: false,
+		car: false,
 	})
 	const [ validated, setValid ] = useValidate({
 		name: true,
@@ -76,10 +86,10 @@ const Form = ({}) => {
 
 	return (
 		<Card style={{ textAlign: 'left',  height: '100%' }} >
-			<CardContent style={Object.assign({  height: '100%' }, (sent ) ? {border: '1px solid blue'} : {border: '1px solid red'})}>
+			<CardContent style={Object.assign({  height: '100%' }, (sent ) ? {} : {border: '1px solid red'})}>
 				<FormGroup 
 					onChange={handleChange} 
-					style={{  height: 'calc(100% - 48px)', justifyContent: 'space-between' }} >
+					style={{ justifyContent: 'space-between' }} >
 				
 					<TextField required
 						label="Name"
@@ -102,6 +112,37 @@ const Form = ({}) => {
 						value={form.email}
 						error={!validated.email }
 					/>
+					<div className="form-control" >
+						<FormControlLabel
+							control={
+								<Checkbox
+									name="bed"
+									checked={form.bed}
+									value={true}
+								/>
+							}
+							label="Need a bed"
+						/>
+						<div>
+							<Bed/>
+							<Bed/>
+							<Bed/>
+							<Couch/>
+						</div>
+					 </div>
+					 <div className="form-control" >
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={form.car}
+									value={true}
+									name="car"
+								/>
+							}
+							label="Need to park.. its $50."
+						/>
+						<Car />
+					 </div>
 					<Button onClick={() => handleSubmit()} type="submit" variant="contained" color="primary">
 						Submit
 					</Button>

@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Avatar, Tooltip, TextField, Button } from '@material-ui/core'
 
+import { useFetch } from '../hooks/hooks'
 import { getAllMessages, postMessage } from '../api/messages'
 
 export const styles = {
@@ -10,7 +11,7 @@ export const styles = {
 	},
 	avatar: {
 		backgroundColor: 'orange',
-		height: '2em',
+		height: '1.7em',
 		fontSize: '1.5em',
 		borderRadius: '1.5em',
 		display: 'flex',
@@ -31,45 +32,44 @@ export const styles = {
 	},
 	tooltip: {
 		fontSize: '18px'
+	},
+	error: {
+		border: '1px solid red'
 	}
-}
-
-export const useFetch = (fetchFunc, defaultData, input) => {
-	const [data, updateData] = useState(defaultData)
-
-	useEffect(async () => {
-			const data = await fetchFunc(input)
-			updateData(data)
-	}, [fetchFunc])
-
-	return [data, updateData]
 }
 
 const WriteMessage = ({postMsg}) => {
 	const [ value, setValue ] = useState('')
+	const [ tooLong, isTooLong ] = useState(false)
 
 	return (
-		<div className="flex write-message hundred"  >
+		<form onSubmit={() =>postMsg(value)} className="flex write-message hundred" >
 			<TextField
-				className="hundred" 
-				id="write-message__input"
+				style={ tooLong ? styles.error : {} }
+				className="hundred write-message__input"
 				multiline
-				rowsMax="4"
+				rowsMax="8"
 				value={value}
-				onChange={({target}) => setValue(target.value)}
-				margin="normal"
+				onChange={({target}) => {
+					isTooLong(target.value.length >= 512)
+					setValue(target.value)
+				}}
 				variant="outlined"
 			/>
+			<p className={`too-long ${tooLong ? '' : 'hide'}`}>
+				Dude, too long and boring.
+			</p>
 			<Button
+				type="submit"
 				className="hundred" 
-				onClick={() =>postMsg(value)}
+				
 				id="write-message__submit"
 				variant="contained"
 				color="primary"
 			>
 				Send
 			</Button>
-		</div>
+		</form>
 	)
 }
 
@@ -96,25 +96,28 @@ const Messages = () => {
 	
 
 	return(
-		<div className="hundred">
-			<div style={styles.container}>
-				<ul className="block hundred" >
-					{messages.map(msg => 
-						<div key={msg._id} className="message flex">
-							<Tooltip
-								title={new Date(msg.created_on).toLocaleString()}
-								placement="top-end"
-							>
-								<div style={styles.avatar}>{id === msg.personId ? 'You' : msg.name}
-								</div>
-							</Tooltip>
-							<li style={styles.li}>{msg.message}</li>
-						</div>
-						)}
-				</ul>
+		<>
+			<h2>Message Board</h2>
+			<div className="hundred">
+				<div style={styles.container}>
+					<ul className="block hundred" >
+						{messages.map(msg => 
+							<div key={msg._id} className="message flex">
+								<Tooltip
+									title={new Date(msg.created_on).toLocaleString()}
+									placement="top-end"
+								>
+									<div style={styles.avatar}>{id === msg.personId ? 'You' : msg.name}
+									</div>
+								</Tooltip>
+								<li style={styles.li}>{msg.message}</li>
+							</div>
+							)}
+					</ul>
+				</div>
+				<WriteMessage postMsg={value => handlePostMsg(value)} />
 			</div>
-			<WriteMessage postMsg={value => handlePostMsg(value)} />
-		</div>
+		</>
 	)
 }
 
