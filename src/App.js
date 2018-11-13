@@ -7,7 +7,7 @@ import Form from './components/Form';
 import Details from './components/Details';
 import Messages from './components/Messages';
 import People from './components/People';
-
+console.log(process.env.REACT_APP_PROD)
 
 class App extends Component {
   render() {
