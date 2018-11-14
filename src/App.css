@@ -20,6 +20,17 @@
   padding: 12px;
   grid-gap: 8px;
 }
+@media (max-width: 600px) {
+  .attendance-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 800px) {
+  .attendance-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .message {
   display: grid;
   width: 100%;
