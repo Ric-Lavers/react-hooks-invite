@@ -4,12 +4,15 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.3.2",
+    "@reach/alert": "^0.1.1",
     "cloudinary-react": "^1.0.6",
     "react": "^16.7.0-alpha",
     "react-dom": "^16.7.0-alpha",
     "react-dropzone": "^7.0.1",
+    "react-icons": "^3.2.2",
     "react-image-gallery": "^0.8.12",
     "react-scripts": "2.1.1",
+    "react-slick": "^0.23.2",
     "react-virtualized-auto-sizer": "^1.0.2",
     "superagent": "^4.0.0-beta.5",
     "validator": "^10.8.0"

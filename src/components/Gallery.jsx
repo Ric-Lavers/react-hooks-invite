@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import ImageGallery from 'react-image-gallery';
-import { CloudinaryContext, Transformation, Video, Image } from 'cloudinary-react';
 
+import RyansGallery from '../RyanFlorence/App' 
+import { postImgSrc, getAllImgSrc } from '../api/gallery'
+import { log } from 'core-js';
 
 
 const Gallery = () => {
   const [ images, setImages ] = useState([])
 
-  // useEffect(() => {
-    
-  // }, [])
-  return (
-    <CloudinaryContext cloudName="aeonknight">
-      { images.map((data, index) => {
-        console.log(data)
-        return(
-          <div className="col-sm-4" key={index}>
-            <div className="embed-responsive embed-responsive-4by3">
-              <Image publicId={data.public_id} width="300" height="300" controls></Image>
-            </div>
-            <div> Created at {data.created_at} </div>
+  useEffect(async () => {
+    try {
+      let imgs  = await getAllImgSrc()
+      imgs = imgs.map( i =>  ({src: i.src, title: ""}) ) 
+      setImages(imgs)
+      console.log(imgs)
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
 
-          </div>
-        )})
-      }
-    </CloudinaryContext>
-  )
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
+  return (
+    <RyansGallery slides={images}/>
+  );
 }
 
 export default Gallery
