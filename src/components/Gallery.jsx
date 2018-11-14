@@ -13,7 +13,6 @@ const Gallery = () => {
       let imgs  = await getAllImgSrc()
       imgs = imgs.map( i =>  ({src: i.src, title: ""}) ) 
       setImages(imgs)
-      console.log(imgs)
     } catch (error) {
       console.error(error)
     }
