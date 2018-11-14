@@ -35,6 +35,7 @@ const WriteMessage = ({postMsg}) => {
 	const handleSubmit = e => {
 		e.preventDefault()
 		postMsg(value)
+		setValue('')
 	}
 
 	return (
