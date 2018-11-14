@@ -16,8 +16,6 @@ class App extends Component {
     return (
       <Fragment>
         <Grid  className="App" container spacing={24} >
-         Gallery
-        
             <Grid item xs={12}>
               <Paper style={{ height: '100%' }} >
                 <Gallery/>
