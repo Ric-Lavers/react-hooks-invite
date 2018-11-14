@@ -98,6 +98,20 @@
 .black {
   fill: #000
 }
+.Uploader {
+  width: 100%;
+}
+.dropzone {
+  width: 100%;
+  height: 80px;
+  border: 1px dashed black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dropzone p {
+  white-space: pre-line !important;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
