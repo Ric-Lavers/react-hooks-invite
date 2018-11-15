@@ -21,6 +21,7 @@ export const allPeople = async () => {
 		
 	} catch (error) {
 		console.error(error)
+		return []
 		/* show error snackbar */
 	}
 }

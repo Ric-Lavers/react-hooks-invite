@@ -23,7 +23,6 @@ const theme = createMuiTheme({
       main: '#4717F6',
       contrastText: '#0E0B16'
     },
-    color: 'white',
   }
 })
 
@@ -74,7 +73,6 @@ class App extends Component {
               
               <Welcome/>
 
-              {this.state.hasError && <ErrorSnackbar/>}
 
           </Grid>
       </MuiThemeProvider>

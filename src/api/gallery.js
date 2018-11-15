@@ -1,5 +1,5 @@
 import {SERVER_URL}  from './root'
-
+console.log(SERVER_URL)
 export const postImgSrc = async (imgSrc) => {
 	try {
 		const data = await fetch(SERVER_URL + '/gallery/post-src', {
@@ -10,7 +10,6 @@ export const postImgSrc = async (imgSrc) => {
 		
 	} catch (error) {
 		console.error(error)
-		throw error
 		/* show error snackbar */
 	}
 }
@@ -21,6 +20,6 @@ export const getAllImgSrc = async () => {
 		return data.json()
 	} catch (error) {
 		console.error(error)
-		throw error
+		return []
 	}
 }

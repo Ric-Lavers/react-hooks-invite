@@ -1,5 +1,5 @@
 
-var SERVER_URL = process.env.REACT_APP_PROD
+var SERVER_URL = process.env.REACT_APP_DEV
 
 
 export {

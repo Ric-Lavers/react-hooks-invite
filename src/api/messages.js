@@ -20,6 +20,6 @@ export const getAllMessages = async () => {
 		return data.json()
 	} catch (error) {
 		console.error(error)
-		return error
+		return []
 	}
 }
