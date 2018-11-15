@@ -33,11 +33,11 @@ const People = () => {
 											title={`RSVP @ ${toLocaleString(person.created_on)}`}
 											placement="top"
 										> 
-											<span>{person.name}</span>
+											<span>{person.name}	</span>
 										</Tooltip>
 									</div>
-									<div >{person.email}</div>
-									<div >{person.phoneNumber}</div>
+									<div className="sensitive" >{person.email}</div>
+									<div className="sensitive" >{person.phoneNumber}</div>
 								</Fragment>
 							</Paper>
 						</div>

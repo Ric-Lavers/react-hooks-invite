@@ -37,7 +37,7 @@ const colors = [
 ]
 
 
-const WriteMessage = ({postMsg}) => {
+const WriteMessage = ({postMsg, color, name}) => {
 	const [ value, setValue ] = useState('')
 	const [ tooLong, isTooLong ] = useState(false)
 
@@ -49,6 +49,9 @@ const WriteMessage = ({postMsg}) => {
 
 	return (
 		<form onSubmit={handleSubmit} className="flex write-message hundred" >
+			<div style={{backgroundColor: color}}>
+				{`posting as "${name}"`}
+			</div>
 			<TextField
 				style={ tooLong ? styles.error : {} }
 				className="hundred write-message__input"
@@ -98,25 +101,34 @@ const Messages = () => {
 		}
 
 	}
-	
+	const unknown =  'some guy'
+	const color = id ? colors[parseInt(id, 16) % 5 ] : 'orange'
+	const name = localStorage.getItem('name') || unknown
 
 	return(
 		<>
 			<h2>Message Board</h2>
 			<div className="hundred">
+				<WriteMessage 
+					postMsg={value => handlePostMsg(value)} 
+					color={color}
+					name={name}
+				/>
 				<div 
 				className="message-container">
-					{messages.map((msg, i) => 
+					{messages.reverse().map((msg, i) => 
+
 						<div key={`${i}_${msg._id}`}
 							className={`message ${id === msg.personId? 'you':''}`}
 						>
-						{console.log(msg.personId)}
+
 						{id === msg.personId &&
 							<Fragment>
 								<div key={`key_${msg._id}`}/>
 								<p style={styles.li}>{msg.message}</p>
 							</Fragment>
 						}
+
 							<Tooltip
 								title={new Date(msg.created_on).toLocaleString()}
 								placement="top-end"
@@ -131,20 +143,20 @@ const Messages = () => {
 									{
 										id === msg.personId 
 											? 'You'
-											: msg.personId === null
-												? 'some un-RSVP\'d c**t'
+											: !!msg.personId
+												? unknown
 												: msg.name
 									}
 									</p>
 								</div>
 							</Tooltip>
+
 							{id !== msg.personId &&
 								<p style={styles.li}>{msg.message}</p>
 							}
 						</div>
 						)}
 				</div>
-				<WriteMessage postMsg={value => handlePostMsg(value)} />
 			</div>
 		</>
 	)

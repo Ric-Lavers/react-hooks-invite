@@ -10,7 +10,15 @@ const Gallery = () => {
   useEffect(async () => {
     try {
       let imgs  = await getAllImgSrc()
-      imgs = imgs.map( i =>  ({src: i.src, title: ""}) ) 
+      let srcs = []
+      imgs = imgs
+        .filter( img  => {
+          let duplicate = srcs.some(j => j === img.src)
+          if (duplicate) return false;
+          srcs.push(img.src)
+          return true
+        })
+        .map( i =>  ({src: i.src, title: ""}) ) .reverse()
       setImages(imgs)
     } catch (error) {
       console.error(error)

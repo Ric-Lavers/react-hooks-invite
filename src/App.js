@@ -26,18 +26,9 @@ const theme = createMuiTheme({
   }
 })
 
-class App extends Component {
-  state = {
-    hasError: false,
-  }
-  componentDidCatch(error, info){
-    console.error(error)
-    this.setState({ hasError: true })
-    setTimeout(() => {
-      this.setState({ hasError: false })
-    }, 3000)
-  }
 
+class App extends Component {
+  
   render() {
     return (
       <MuiThemeProvider theme={theme}>
@@ -72,7 +63,6 @@ class App extends Component {
               </Grid>
               
               <Welcome/>
-
 
           </Grid>
       </MuiThemeProvider>

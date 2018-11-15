@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Snackbar } from '@material-ui/core'
 
-const ErrorSnackbar = () => {
+const ErrorSnackbar = ({ openNum }) => {
 	const [open, setOpen] = useState(true)
+
 	const close = () => setOpen(false)
+
+	useEffect( () => {
+		setOpen(true)
+	}, [ openNum ] )
+
 
 	return (
 		<Snackbar

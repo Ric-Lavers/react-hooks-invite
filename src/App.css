@@ -15,6 +15,14 @@
 .hide {
   display: none;
 }
+
+.sensitive {
+  color: transparent;
+}
+
+.sensitive:hover {
+  color: black;
+}
 .attendance-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

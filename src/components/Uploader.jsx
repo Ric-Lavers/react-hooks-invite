@@ -39,6 +39,7 @@ class Uploader extends Component {
           uploadedFileCloudinaryUrl: response.body.secure_url
         });
       }
+      console.log(response.body)
       postImgSrc({
         src: response.body.secure_url,
         uploadedBy: localStorage.name,
