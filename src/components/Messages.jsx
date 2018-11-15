@@ -104,7 +104,7 @@ const Messages = () => {
 	const unknown =  'some guy'
 	const color = id ? colors[parseInt(id, 16) % 5 ] : 'orange'
 	const name = localStorage.getItem('name') || unknown
-
+	console.log(messages)
 	return(
 		<>
 			<h2>Message Board</h2>
@@ -116,13 +116,19 @@ const Messages = () => {
 				/>
 				<div 
 				className="message-container">
-					{messages.reverse().map((msg, i) => 
-
+					{messages.reverse().map((msg, i) => {
+						let name = msg.name
+						if ( !name  ) {
+							name = unknown
+						}else if ( id === msg.personId && !!msg.personId) {
+							name ='You'
+						}
+						return (
 						<div key={`${i}_${msg._id}`}
 							className={`message ${id === msg.personId? 'you':''}`}
 						>
 
-						{id === msg.personId &&
+						{(id === msg.personId) &&
 							<Fragment>
 								<div key={`key_${msg._id}`}/>
 								<p style={styles.li}>{msg.message}</p>
@@ -141,11 +147,7 @@ const Messages = () => {
 									}
 								> <p>
 									{
-										id === msg.personId 
-											? 'You'
-											: !!msg.personId
-												? unknown
-												: msg.name
+										name
 									}
 									</p>
 								</div>
@@ -154,7 +156,7 @@ const Messages = () => {
 							{id !== msg.personId &&
 								<p style={styles.li}>{msg.message}</p>
 							}
-						</div>
+						</div>)}
 						)}
 				</div>
 			</div>
