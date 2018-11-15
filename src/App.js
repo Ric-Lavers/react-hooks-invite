@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css'
 import "./RyanFlorence/whatevs/index.css"
 import { Grid, Paper } from '@material-ui/core'
@@ -11,6 +12,20 @@ import Uploader from './components/Uploader'
 import Gallery from './components/Gallery'
 import Welcome from './components/Welcome'
 import ErrorSnackbar from './components/ErrorSnackbar'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#A239CA',
+      contrastText: '#E7DFDD'
+    },
+    secondary: {
+      main: '#4717F6',
+      contrastText: '#0E0B16'
+    },
+    color: 'white',
+  }
+})
 
 class App extends Component {
   state = {
@@ -26,43 +41,43 @@ class App extends Component {
 
   render() {
     return (
-      <Fragment>
-        <Grid  className="App" container spacing={24} >
-            <Grid item xs={12}>
-              <Paper style={{ height: '100%' }} >
-                <Gallery/>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper style={{ height: '100%' }} >
-                <Details/>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper style={{ height: '100%' }} >
-                <Form/>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Uploader/>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper style={{ height: '100%' }} >
-                <Messages/>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper style={{ height: '100%' }} >
-                <People/>
-              </Paper>
-            </Grid>
-            
-            <Welcome/>
+      <MuiThemeProvider theme={theme}>
+          <Grid  className="App" container spacing={24} >
+              <Grid item xs={12}>
+                <Paper style={{ height: '100%' }} >
+                  <Gallery/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Paper style={{ height: '100%' }} >
+                  <Details/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Paper style={{ height: '100%' }} >
+                  <Form/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Uploader/>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper style={{ height: '100%' }} >
+                  <Messages/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper style={{ height: '100%' }} >
+                  <People/>
+                </Paper>
+              </Grid>
+              
+              <Welcome/>
 
-            {this.state.hasError && <ErrorSnackbar/>}
+              {this.state.hasError && <ErrorSnackbar/>}
 
-        </Grid>
-      </Fragment>
+          </Grid>
+      </MuiThemeProvider>
     );
   }
 }

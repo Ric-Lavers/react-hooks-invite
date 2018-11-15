@@ -124,7 +124,7 @@ function App({ slides}) {
     },
     {
       currentIndex: 0,
-      isPlaying: false,
+      isPlaying: true,
       takeFocus: false
     }
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Tooltip, TextField, Button } from '@material-ui/core'
 
 import { useFetch } from '../hooks/hooks'
@@ -27,6 +27,15 @@ export const styles = {
 		border: '1px solid red'
 	}
 }
+
+const colors = [
+  '#A239CA', 
+  '#0D23FF',
+  '#FF0000',
+  '#E86C0C',
+  '#FFCB0D',
+]
+
 
 const WriteMessage = ({postMsg}) => {
 	const [ value, setValue ] = useState('')
@@ -101,17 +110,32 @@ const Messages = () => {
 						<div key={`${i}_${msg._id}`}
 							className={`message ${id === msg.personId? 'you':''}`}
 						>
+						{console.log(msg.personId)}
 						{id === msg.personId &&
-							<>
+							<Fragment>
 								<div key={`key_${msg._id}`}/>
 								<p style={styles.li}>{msg.message}</p>
-							</>
+							</Fragment>
 						}
 							<Tooltip
 								title={new Date(msg.created_on).toLocaleString()}
 								placement="top-end"
 							>
-								<div className="avatar">{id === msg.personId ? 'You' : msg.name}
+								<div 
+									className="avatar"
+									style={msg.personId
+										? { backgroundColor: colors[parseInt(msg.personId, 16) % 5 ]}
+										: {}
+									}
+								> <p>
+									{
+										id === msg.personId 
+											? 'You'
+											: msg.personId === null
+												? 'some un-RSVP\'d c**t'
+												: msg.name
+									}
+									</p>
 								</div>
 							</Tooltip>
 							{id !== msg.personId &&
