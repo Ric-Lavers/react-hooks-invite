@@ -1,4 +1,4 @@
-import SERVER_URL  from './root'
+import {SERVER_URL}  from './root'
 
 export const postMessage = async (messageObj) => {
 	try {

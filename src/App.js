@@ -1,17 +1,29 @@
-import React, { Component, Fragment } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import "./RyanFlorence/whatevs/index.css";
+import React, { Component, Fragment } from 'react'
+import './App.css'
+import "./RyanFlorence/whatevs/index.css"
 import { Grid, Paper } from '@material-ui/core'
 
-import Form from './components/Form';
-import Details from './components/Details';
-import Messages from './components/Messages';
-import People from './components/People';
+import Form from './components/Form'
+import Details from './components/Details'
+import Messages from './components/Messages'
+import People from './components/People'
 import Uploader from './components/Uploader'
 import Gallery from './components/Gallery'
+import Welcome from './components/Welcome'
+import ErrorSnackbar from './components/ErrorSnackbar'
 
 class App extends Component {
+  state = {
+    hasError: false,
+  }
+  componentDidCatch(error, info){
+    console.error(error)
+    this.setState({ hasError: true })
+    setTimeout(() => {
+      this.setState({ hasError: false })
+    }, 3000)
+  }
+
   render() {
     return (
       <Fragment>
@@ -45,7 +57,9 @@ class App extends Component {
               </Paper>
             </Grid>
             
-            
+            <Welcome/>
+
+            {this.state.hasError && <ErrorSnackbar/>}
 
         </Grid>
       </Fragment>

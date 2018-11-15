@@ -25,17 +25,17 @@ const Item = ({title, body}) =>  (
 		<Typography variant="h4" gutterBottom>
 			{title}
 		</Typography>
-		<Typography variant="p" gutterBottom>
+		<Typography variant="body1" gutterBottom>
 			{body}
 		</Typography>
 	</Fragment>
 )
 
 
-const Details = ({}) => (
+const Details = () => (
 	<Card style={{ textAlign: 'left' }}>
 		<CardContent>
-			{details.map( item => <Item {...item}/> )}
+			{details.map( item => <Item key={item.title} {...item}/> )}
 		</CardContent>
 	</Card>
 )

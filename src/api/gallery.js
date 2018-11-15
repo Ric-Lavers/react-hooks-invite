@@ -1,4 +1,4 @@
-import SERVER_URL  from './root'
+import {SERVER_URL}  from './root'
 
 export const postImgSrc = async (imgSrc) => {
 	try {
@@ -10,6 +10,7 @@ export const postImgSrc = async (imgSrc) => {
 		
 	} catch (error) {
 		console.error(error)
+		throw error
 		/* show error snackbar */
 	}
 }

@@ -1,15 +1,14 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Tooltip, Grid, Paper } from '@material-ui/core'
+import { Tooltip, Paper } from '@material-ui/core'
 
 import { allPeople } from '../api/person'
-import { useFetch, styles } from './Messages'
 
 const toLocaleString = dateString => {
 	const localeString = new Date(dateString).toLocaleString()
 	return localeString.toString()
 }
 
-const People = ({}) => {
+const People = () => {
 
 	const [ people, setPeople ] = useState([])
 	useEffect( async () => {
@@ -26,7 +25,7 @@ const People = ({}) => {
 			<h2>Attendees</h2>
 			<div className="attendance-grid">
 					{people.map(person => 
-						<div style={{ width: '100%' }}>	
+						<div key={person._id} style={{ width: '100%' }}>	
 							<Paper >
 								<Fragment>
 									<div >

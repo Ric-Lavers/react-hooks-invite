@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { Avatar, Tooltip, TextField, Button } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Tooltip, TextField, Button } from '@material-ui/core'
 
 import { useFetch } from '../hooks/hooks'
 import { getAllMessages, postMessage } from '../api/messages'
@@ -71,7 +71,7 @@ const WriteMessage = ({postMsg}) => {
 
 const Messages = () => {
 	const [messages, updateData] = useFetch(getAllMessages, [{}])
-	const [id, setId] = useState(localStorage.getItem('personId'))
+	const id = localStorage.getItem('personId')
 
 	const handlePostMsg = async (value) => {
 		let personId = id
@@ -97,13 +97,13 @@ const Messages = () => {
 			<div className="hundred">
 				<div 
 				className="message-container">
-					{messages.map(msg => 
-						<div key={msg._id}
+					{messages.map((msg, i) => 
+						<div key={`${i}_${msg._id}`}
 							className={`message ${id === msg.personId? 'you':''}`}
 						>
 						{id === msg.personId &&
 							<>
-								<div/>
+								<div key={`key_${msg._id}`}/>
 								<p style={styles.li}>{msg.message}</p>
 							</>
 						}

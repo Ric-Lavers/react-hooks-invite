@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import RyansGallery from '../RyanFlorence/App' 
-import { postImgSrc, getAllImgSrc } from '../api/gallery'
-import { log } from 'core-js';
+import { getAllImgSrc } from '../api/gallery'
 
 
 const Gallery = () => {
@@ -17,15 +16,7 @@ const Gallery = () => {
       console.error(error)
     }
   }, [])
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
-
+  
   return (
     <RyansGallery slides={images}/>
   );
