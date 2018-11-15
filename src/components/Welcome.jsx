@@ -9,11 +9,11 @@ import {
 } from '@material-ui/core'
 
 const Welcome = () => {
-	const [ notFirstTime, setOpen ] = useState(Boolean(localStorage.notFirstTime))
+	const [ notFirstTime, setClose ] = useState(Boolean(localStorage.notFirstTime))
 
 	const close = () => {
 		localStorage.setItem('notFirstTime', true)
-		setOpen(false)
+		setClose(true)
 	}
 
 	return (
