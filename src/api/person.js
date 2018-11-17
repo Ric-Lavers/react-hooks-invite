@@ -1,6 +1,8 @@
+import SERVER_URL  from './root'
+
 export const postPerson = async (personObj) => {
 	try {
-		const data = await fetch('/person', {
+		const data = await fetch(SERVER_URL + '/person', {
 			method: "POST",
 			body: JSON.stringify(personObj)
 		})
@@ -14,7 +16,7 @@ export const postPerson = async (personObj) => {
 
 export const allPeople = async () => {
 	try {
-		const data = await fetch('/person/all')
+		const data = await fetch(SERVER_URL+'/person/all')
 		return data.json()
 		
 	} catch (error) {

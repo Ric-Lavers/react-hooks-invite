@@ -75,7 +75,7 @@ const Form = () => {
 		email: true,
 	}
 	const [ sent, setSent ] = useState(true)
-	const [ isLoading, setLoading ] = useState(true)
+	const [ isLoading, setLoading ] = useState(false)
 	const {form, onChange, setForm } = useInput(initalForm)
 	const [ validated, setValid ] = useValidate(initalValidiated)
 
@@ -88,16 +88,20 @@ const Form = () => {
 
 	const handleSubmit = async() => {
 		setLoading(true)
-		let sendSuccessful = await postPerson(form)
-		localStorage.setItem('personId', sendSuccessful._id)
-		setSent(!!sendSuccessful)
-		if (!!sendSuccessful){ setForm(initalForm); setValid(initalValidiated)};
+		try{
+			let sendSuccessful = await postPerson(form)
+			localStorage.setItem('personId', sendSuccessful._id)
+			setForm(initalForm); 
+			setValid(initalValidiated)
+		}catch(e) {
+			console.error(e)
+		}
 		setLoading(false)
 	}
 
 	return (
 		<Card style={{ textAlign: 'left',  height: '100%' }} >
-			<CardContent style={Object.assign({  height: '100%' }, (sent ) ? {} : {border: '1px solid red'})}>
+			<CardContent >
 				<FormGroup 
 					onChange={handleChange} 
 					style={{ justifyContent: 'space-between' }} >
@@ -158,8 +162,8 @@ const Form = () => {
 					 </div>
 					<Button  onClick={() => handleSubmit()} type="submit" variant="contained" color="primary">
 						{isLoading	
-							? 'Submit'
-							: <CircularProgress color="white" />
+							? <CircularProgress color="white" />
+							: 'Submit'
 						}
 					</Button>
 					</FormGroup>
