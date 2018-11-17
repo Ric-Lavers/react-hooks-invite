@@ -24,11 +24,11 @@ const Gallery = () => {
         })
         .map( i =>  ({src: i.src, title: ""}) ) .reverse()
       setImages(imgs)
-      isLoading(false)
+      setLoading(false)
       imagesContext.addImages(imgs)
     } catch (error) {
       console.error(error)
-      isLoading(false)
+      setLoading(false)
     }
   }, [])
   if ( isLoading ) {

@@ -73,7 +73,6 @@ class App extends Component {
   }
 
   setSnackbar = ( message=null ) => {
-console.log('setSnackbar')
     this.setState({
       snackbarProps: {
         openNum: Math.random(),
@@ -87,13 +86,12 @@ console.log('setSnackbar')
 
     return (
       <MuiThemeProvider theme={theme}>
-      <ImagesContext.Provider 
-        value={{
-          addImages: this.addImages,
-          images
-        }} 
-      >
-      <Suspense fallback={<Spinner/>}>
+        <ImagesContext.Provider 
+          value={{
+            addImages: this.addImages,
+            images
+          }} 
+        >
           <Grid  className="App" container spacing={24} >
               <Grid item xs={12}>
                 <Paper style={{ height: '100%' }} >
@@ -151,8 +149,7 @@ console.log('setSnackbar')
 
 
             </Grid>
-      </Suspense>
-      </ImagesContext.Provider>
+        </ImagesContext.Provider>
       </MuiThemeProvider>
     );
   }
