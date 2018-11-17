@@ -10,6 +10,7 @@ import Messages from './components/Messages';
 import People from './components/People';
 import Uploader from './components/Uploader'
 import Gallery from './components/Gallery'
+import Music from './components/Music'
 
 class App extends Component {
   render() {
@@ -42,6 +43,11 @@ class App extends Component {
             <Grid item xs={12}>
               <Paper style={{ height: '100%' }} >
                 <People/>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper style={{ height: '100%' }} >
+                <Music/>
               </Paper>
             </Grid>
             

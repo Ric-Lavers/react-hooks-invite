@@ -80,8 +80,7 @@ function SpacerGif({ width }) {
   return <div style={{ display: "inline-block", width }} />;
 }
 
-function App({ slides}) {
-  console.log(slides)
+function RyansApp({ slides}) {
   let [state, dispatch] = useReducer(
     (state, action) => {
       switch (action.type) {
@@ -221,4 +220,4 @@ function App({ slides}) {
   );
 }
 
-export default App;
+export default RyansApp;
