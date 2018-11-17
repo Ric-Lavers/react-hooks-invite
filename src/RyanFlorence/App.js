@@ -23,6 +23,7 @@ function Slide({ isCurrent, takeFocus, image, id, title, children }) {
       if (isCurrent && takeFocus) {
         ref.current.focus();
       }
+      
     },
     [isCurrent, takeFocus]
   );
@@ -34,8 +35,12 @@ function Slide({ isCurrent, takeFocus, image, id, title, children }) {
       tabIndex="-1"
       aria-labelledby={id}
       className="Slide"
-      style={{ backgroundImage: `url(${image})` }}
+      style={{ backgroundImage: `url(${image})`}}
     >
+      {/* <img 
+        style={{ width: '100%', height: '100%', objectFit: 'contain'}}
+        src={image}
+      /> */}
       {/* <div className="SlideContent">
         <h2 id={id}>{title}</h2>
         {children} 

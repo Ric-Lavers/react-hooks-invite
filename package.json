@@ -9,6 +9,7 @@
     "react": "^16.7.0-alpha",
     "react-dom": "^16.7.0-alpha",
     "react-dropzone": "^7.0.1",
+    "react-filepond": "^5.0.0",
     "react-icons": "^3.2.2",
     "react-image-gallery": "^0.8.12",
     "react-player": "^1.6.6",

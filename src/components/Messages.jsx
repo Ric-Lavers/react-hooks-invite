@@ -43,6 +43,10 @@ const WriteMessage = ({postMsg, color, name}) => {
 
 	const handleSubmit = e => {
 		e.preventDefault()
+		if ( !value.match(/()\w+/) ) {
+			console.log("no words")
+			return 
+		};
 		postMsg(value)
 		setValue('')
 	}
@@ -104,7 +108,7 @@ const Messages = () => {
 	const unknown =  'some guy'
 	const color = id ? colors[parseInt(id, 16) % 5 ] : 'orange'
 	const name = localStorage.getItem('name') || unknown
-	console.log(messages)
+
 	return(
 		<>
 			<h2>Message Board</h2>
