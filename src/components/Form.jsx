@@ -26,12 +26,13 @@ const useValidate = inital => {
 		let isValid = {...validated}
 		switch (name) {
 			case 'email':
-				isValid[name] = value === "" ? true : isEmail(value)
+				isValid[name] = value === "" ? false : isEmail(value)
 				break;	
 			case 'phoneNumber':
-				isValid[name] = value === "" ? true : isMobilePhone(value, ['en-AU'])
+				isValid[name] = value === "" ? false : isMobilePhone(value, ['en-AU'])
 				break;
 			case 'name':
+				isValid[name] = value === "" ? false : true
 				localStorage.setItem('name', value)
 				break;
 			default:
@@ -39,6 +40,7 @@ const useValidate = inital => {
 		}
 		setValid(isValid)
 	}
+
 	return [
 		validated, 
 		handleChange,
@@ -61,7 +63,7 @@ const useInput = inital => {
 	}
 }
 
-const Form = () => {
+const Form = ({ setSnackbar }) => {
 	const initalForm = {
 		name: '',
 		phoneNumber: '',
@@ -80,14 +82,19 @@ const Form = () => {
 	const [ validated, setValid ] = useValidate(initalValidiated)
 
 	const handleChange = event => {
-		
 		onChange(event)
 		setValid(event)
 	}
 
-
 	const handleSubmit = async() => {
 		setLoading(true)
+console.log( Object.values(validated).every( i => i) )
+		if ( !Object.values(validated).every( i => i) ){
+			console.log( Object.values(validated) )
+			setSnackbar("Who dis?")
+			setLoading(false)
+			return
+		}
 		try{
 			let sendSuccessful = await postPerson(form)
 			localStorage.setItem('personId', sendSuccessful._id)
@@ -111,6 +118,7 @@ const Form = () => {
 						type="text"
 						name="name"
 						value={form.name}
+						error={!validated.name}
 					/>
 
 					<TextField required

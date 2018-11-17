@@ -25,7 +25,7 @@ class Uploader extends Component {
       ? this.handleImageUpload(files[0])
       : this.handleReject()
 
-console.log("Dropzone", files)
+// console.log("Dropzone", files)
 
   }
 
@@ -45,12 +45,13 @@ console.log("Dropzone", files)
           uploadedFileCloudinaryUrl: response.body.secure_url
         });
       }
-      console.log(response.body)
+      // console.log(response.body)
+
       postImgSrc({
         src: response.body.secure_url,
         uploadedBy: localStorage.name,
         uploaderId: localStorage.personId,
-      }).then( () => console.log("postImgSrc success"))
+      }).then( () => this.props.addImages({src:response.body.secure_url, title: "" }))
     });
     
     this.setState({ isLoading: false })

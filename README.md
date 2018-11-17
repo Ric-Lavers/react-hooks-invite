@@ -6,6 +6,9 @@ This site is to build a Birthday Event site, experiment with the new React Hooks
 
 (https://link.medium.com/LkHzyqhbOR)[Hooks by Carl Vitullo ]
 
+## Passing function up to the modal from Uploader Pattern
+
+
 ## Suspense
 
 To use Suspense you need to pass the React's strict mode. To enable this wrapo the `<App/>`component like such `<React.StrictMode><App/></React.StrictMode>`, now you will recieve the the non-passing issues as console.error's.

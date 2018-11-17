@@ -1,9 +1,10 @@
-import React, { Component, lazy, Suspense, createContext } from 'react'
+import React, { Component, lazy, Suspense } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css'
 import "./RyanFlorence/whatevs/index.css"
 import { Grid, Paper } from '@material-ui/core'
 
+import { ImagesContext } from './context'
 import Form from './components/Form'
 import Details from './components/Details'
 // import Messages from './components/Messages'
@@ -18,9 +19,6 @@ import Spinner from './components/Spinner'
 
 const Gallery = lazy(() => import('./components/Gallery'))
 const Messages = lazy(() => import('./components/Messages') )
-
-// const imagesContext = createContext();
-
 
 const theme = createMuiTheme({
   palette: {
@@ -46,11 +44,16 @@ class App extends Component {
       message: null
     },
     modalLoading: false,
+    images: [],
+  }
+
+  addImages = (images) => {
+    this.setState({
+      images: [ ...[].concat(images), ...this.state.images ]
+    })
   }
 
   setModal = (title, message, actionsKey, actionName) => {
-console.log("setModal",  actionsKey)
-console.log(typeof actionsKey)
     this.setState({
       modalIsOpen: true, 
       modalProps: {
@@ -70,6 +73,7 @@ console.log(typeof actionsKey)
   }
 
   setSnackbar = ( message=null ) => {
+console.log('setSnackbar')
     this.setState({
       snackbarProps: {
         openNum: Math.random(),
@@ -79,12 +83,17 @@ console.log(typeof actionsKey)
   }
   
   render() {
-    let { closeModal, modalIsOpen, modalProps } = this.state
+    let { closeModal, modalIsOpen, modalProps, images } = this.state
 
     return (
       <MuiThemeProvider theme={theme}>
+      <ImagesContext.Provider 
+        value={{
+          addImages: this.addImages,
+          images
+        }} 
+      >
       <Suspense fallback={<Spinner/>}>
-      <button onClick={this.setSnackbar} >set Snackbar </button>
           <Grid  className="App" container spacing={24} >
               <Grid item xs={12}>
                 <Paper style={{ height: '100%' }} >
@@ -100,11 +109,12 @@ console.log(typeof actionsKey)
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Paper style={{ height: '100%' }} >
-                  <Form/>
+                  <Form setSnackbar={this.setSnackbar} />
                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Uploader
+                  addImages={this.addImages}
                   setModal={this.setModal} 
                   isLoading={this.state.modalLoading
                     && (this.state.modalProps.actionName === "Upload anyways?")}
@@ -135,12 +145,14 @@ console.log(typeof actionsKey)
                   {...modalProps}
                 />
                 <ErrorSnackbar
-                  openNum={this.state.openNum}
+                  message={this.state.snackbarProps.message}
+                  openNum={this.state.snackbarProps.openNum}
                 />
 
 
             </Grid>
       </Suspense>
+      </ImagesContext.Provider>
       </MuiThemeProvider>
     );
   }

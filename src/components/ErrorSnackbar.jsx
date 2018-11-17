@@ -3,15 +3,11 @@ import { Snackbar } from '@material-ui/core'
 
 const ErrorSnackbar = ({ openNum=1, message }) => {
 	const [open, setOpen] = useState(false)
-
 	const close = () => setOpen(false)
 
 	useEffect( () => {
 		setOpen(true)
-		console.log("useEffect")
 	}, [ openNum ] )
-
-console.log(open, openNum)
 	return (
 		<Snackbar
 			autoHideDuration={1500}

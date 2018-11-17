@@ -1,8 +1,9 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect, useRef, Suspense } from 'react'
 import { Tooltip, TextField, Button } from '@material-ui/core'
 
 import { useFetch } from '../hooks/hooks'
 import { getAllMessages, postMessage } from '../api/messages'
+import Spinner from './common/Spinner'
 
 export const styles = {
 	container: {
@@ -33,7 +34,8 @@ const colors = [
   '#0D23FF',
   '#FF0000',
   '#E86C0C',
-  '#FFCB0D',
+	'#FFCB0D',
+	'pink'
 ]
 
 
@@ -41,14 +43,26 @@ const WriteMessage = ({postMsg, color, name}) => {
 	const [ value, setValue ] = useState('')
 	const [ tooLong, isTooLong ] = useState(false)
 
-	const handleSubmit = e => {
-		e.preventDefault()
+	const handleSubmit = async (e) => {
+		e && e.preventDefault()
 		if ( !value.match(/()\w+/) ) {
-			console.log("no words")
+			console.error("no words")
 			return 
 		};
-		postMsg(value)
+
+		await postMsg(value)
 		setValue('')
+	}
+
+	const handleKeyPress = ({ key, shiftKey }) => {
+		if (key === 'Enter' && shiftKey ) {
+			handleSubmit()
+		}
+	}
+
+	const handleChange = ({value}) => {
+		isTooLong(value.length >= 512)
+		setValue(value)
 	}
 
 	return (
@@ -62,25 +76,27 @@ const WriteMessage = ({postMsg, color, name}) => {
 				multiline
 				rowsMax="8"
 				value={value}
-				onChange={({target}) => {
-					isTooLong(target.value.length >= 512)
-					setValue(target.value)
-				}}
+				onChange={({ target}) => handleChange(target)}
+				onKeyPress={handleKeyPress}
 				variant="outlined"
 			/>
 			<p className={`too-long ${tooLong ? '' : 'hide'}`}>
 				Dude, too long and boring.
 			</p>
-			<Button
-				type="submit"
-				className="hundred" 
-				
-				id="write-message__submit"
-				variant="contained"
-				color="primary"
-			>
-				Send
-			</Button>
+			<Suspense fallback={ <Spinner/> }>
+				<span>
+					<Button
+						type="submit"
+						className="hundred" 
+						
+						id="write-message__submit"
+						variant="contained"
+						color="primary"
+					>
+						Send
+					</Button>
+				</span>
+			</Suspense>
 		</form>
 	)
 }
@@ -94,12 +110,12 @@ const Messages = () => {
 		let message;
 		try {
 			const postedMsg= await postMessage( {
-				name: localStorage.getItem('name') || '',
+				name: localStorage.getItem('name') || 'some guy',
 				message: value,
 				personId: personId,
 			})
 			message = postedMsg
-			updateData([...messages, message])
+			updateData([ message, ...messages])
 		} catch (error) {
 			console.error(error)
 		}
@@ -114,13 +130,13 @@ const Messages = () => {
 			<h2>Message Board</h2>
 			<div className="hundred">
 				<WriteMessage 
-					postMsg={value => handlePostMsg(value)} 
+					postMsg={handlePostMsg} 
 					color={color}
 					name={name}
 				/>
 				<div 
 				className="message-container">
-					{messages.reverse().map((msg, i) => {
+					{messages.map((msg, i) => {
 						let name = msg.name
 						if ( !name  ) {
 							name = unknown
@@ -132,7 +148,7 @@ const Messages = () => {
 							className={`message ${id === msg.personId? 'you':''}`}
 						>
 
-						{(id === msg.personId) &&
+						{(name === 'You') &&
 							<Fragment>
 								<div key={`key_${msg._id}`}/>
 								<p style={styles.li}>{msg.message}</p>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 
 
-export const useFetch = (fetchFunc, defaultData='',  input) => {
+export const useFetch = (fetchFunc, defaultData='', input) => {
 	const [data, updateData] = useState(defaultData)
 
 	useEffect(async () => {
-			const data = await fetchFunc(input)
+			let data = await fetchFunc(input)
 			updateData(data)
 	}, [fetchFunc]) //* if the fetch Function changes run again, otherwise dont. 
 

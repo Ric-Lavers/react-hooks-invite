@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 
+import { ImagesContext } from '../context'
+
 
 const Music = () => {
   let  player = useRef(null)

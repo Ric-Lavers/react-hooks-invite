@@ -71,6 +71,7 @@
 
 #write-message__submit {
   width: 20%;
+  height: 100%;
 }
 .too-long {
   width: 10%;
@@ -139,10 +140,10 @@
     grid-template-columns: 1fr;
   }
   .message {
-    font-size: 1em;
+    font-size: 13px;
   }
   .avatar {
-    font-size: 1em;
+    font-size: 12px;
     border-radius: 1em;
     margin-top: 12px;
     margin-bottom: 12px;
