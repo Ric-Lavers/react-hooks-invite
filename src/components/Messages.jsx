@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { Avatar, Tooltip, TextField, Button } from '@material-ui/core'
+import React, { Fragment, useState } from 'react'
+import { Tooltip, TextField, Button } from '@material-ui/core'
 
 import { useFetch } from '../hooks/hooks'
 import { getAllMessages, postMessage } from '../api/messages'
@@ -28,7 +28,16 @@ export const styles = {
 	}
 }
 
-const WriteMessage = ({postMsg}) => {
+const colors = [
+  '#A239CA', 
+  '#0D23FF',
+  '#FF0000',
+  '#E86C0C',
+  '#FFCB0D',
+]
+
+
+const WriteMessage = ({postMsg, color, name}) => {
 	const [ value, setValue ] = useState('')
 	const [ tooLong, isTooLong ] = useState(false)
 
@@ -40,6 +49,9 @@ const WriteMessage = ({postMsg}) => {
 
 	return (
 		<form onSubmit={handleSubmit} className="flex write-message hundred" >
+			<div style={{backgroundColor: color}}>
+				{`posting as "${name}"`}
+			</div>
 			<TextField
 				style={ tooLong ? styles.error : {} }
 				className="hundred write-message__input"
@@ -71,7 +83,7 @@ const WriteMessage = ({postMsg}) => {
 
 const Messages = () => {
 	const [messages, updateData] = useFetch(getAllMessages, [{}])
-	const [id, setId] = useState(localStorage.getItem('personId'))
+	const id = localStorage.getItem('personId')
 
 	const handlePostMsg = async (value) => {
 		let personId = id
@@ -89,38 +101,64 @@ const Messages = () => {
 		}
 
 	}
-	
-
+	const unknown =  'some guy'
+	const color = id ? colors[parseInt(id, 16) % 5 ] : 'orange'
+	const name = localStorage.getItem('name') || unknown
+	console.log(messages)
 	return(
 		<>
 			<h2>Message Board</h2>
 			<div className="hundred">
+				<WriteMessage 
+					postMsg={value => handlePostMsg(value)} 
+					color={color}
+					name={name}
+				/>
 				<div 
 				className="message-container">
-					{messages.map(msg => 
-						<div key={msg._id}
+					{messages.reverse().map((msg, i) => {
+						let name = msg.name
+						if ( !name  ) {
+							name = unknown
+						}else if ( id === msg.personId && !!msg.personId) {
+							name ='You'
+						}
+						return (
+						<div key={`${i}_${msg._id}`}
 							className={`message ${id === msg.personId? 'you':''}`}
 						>
-						{id === msg.personId &&
-							<>
-								<div/>
+
+						{(id === msg.personId) &&
+							<Fragment>
+								<div key={`key_${msg._id}`}/>
 								<p style={styles.li}>{msg.message}</p>
-							</>
+							</Fragment>
 						}
+
 							<Tooltip
 								title={new Date(msg.created_on).toLocaleString()}
 								placement="top-end"
 							>
-								<div className="avatar">{id === msg.personId ? 'You' : msg.name}
+								<div 
+									className="avatar"
+									style={msg.personId
+										? { backgroundColor: colors[parseInt(msg.personId, 16) % 5 ]}
+										: {}
+									}
+								> <p>
+									{
+										name
+									}
+									</p>
 								</div>
 							</Tooltip>
+
 							{id !== msg.personId &&
 								<p style={styles.li}>{msg.message}</p>
 							}
-						</div>
+						</div>)}
 						)}
 				</div>
-				<WriteMessage postMsg={value => handlePostMsg(value)} />
 			</div>
 		</>
 	)

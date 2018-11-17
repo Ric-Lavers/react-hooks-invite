@@ -3,6 +3,7 @@
   padding: 32px;
   white-space: pre-line;
   font-family: 'Roboto', sans-serif;
+  color: #0E0B16;
 }
 .flex {
   display: flex;
@@ -14,27 +15,26 @@
 .hide {
   display: none;
 }
+
+.sensitive {
+  color: transparent;
+}
+
+.sensitive:hover {
+  color: black;
+}
 .attendance-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 12px;
   grid-gap: 8px;
 }
-@media (max-width: 600px) {
-  .attendance-grid {
-    grid-template-columns: 1fr;
-  }
-}
-@media (max-width: 800px) {
-  .attendance-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
+
 
 .message {
   display: grid;
   width: 100%;
-  grid-template-columns: 2fr 11fr 1fr;
+  grid-template-columns: 3fr 11fr 1fr;
   text-align: left;
   margin-top: 12px;
   word-wrap: break-word; 
@@ -50,14 +50,14 @@
 
 .avatar {
   background-color: orange;
-  height: 1.7em;
   font-size: 1.5em;
   border-radius: 1.5em;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5em;
+  padding: 0.7em;
   margin-top: 24px;
+  margin-bottom: 24px;
 }
 /* .message:first-child {
   width: 20%
@@ -129,10 +129,27 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
+
 .Attendance {
   text-align: left;
   text-transform: capitalize;
+}
+@media (max-width: 600px) {
+  .attendance-grid {
+    grid-template-columns: 1fr;
+  }
+  .message {
+    font-size: 1em;
+  }
+  .avatar {
+    font-size: 1em;
+    border-radius: 1em;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+}
+@media (max-width: 800px) {
+  .attendance-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }

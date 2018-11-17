@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
+import { postImgSrc } from '../api/gallery'
+
 const CLOUDINARY_UPLOAD_PRESET = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET;
 const CLOUDINARY_UPLOAD_URL = process.env.REACT_APP_CLOUDINARY_UPLOAD_URL;
 
@@ -13,11 +15,12 @@ class Uploader extends Component {
   };
 
   onImageDrop = files => {
-    this.setState({
-      uploadedFile: files[0]
-    });
+    // this.setState({
+    //   uploadedFile: files[0]
+    // });
 
     this.handleImageUpload(files[0]);
+
   }
 
   handleImageUpload = file => {
@@ -36,8 +39,14 @@ class Uploader extends Component {
           uploadedFileCloudinaryUrl: response.body.secure_url
         });
       }
+      console.log(response.body)
+      postImgSrc({
+        src: response.body.secure_url,
+        uploadedBy: localStorage.name,
+        uploaderId: localStorage.personId,
+      })
     });
-
+    
     this.setState({ isLoading: false })
   }
 

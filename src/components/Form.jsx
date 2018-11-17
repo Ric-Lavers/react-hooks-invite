@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
 	FormGroup,
 	FormControlLabel,
@@ -74,7 +74,7 @@ const Form = () => {
 		phoneNumber: true,
 		email: true,
 	}
-	const [ sent, setSent ] = useState(true)
+	
 	const [ isLoading, setLoading ] = useState(false)
 	const {form, onChange, setForm } = useInput(initalForm)
 	const [ validated, setValid ] = useValidate(initalValidiated)
@@ -133,7 +133,7 @@ const Form = () => {
 								<Checkbox
 									name="bed"
 									checked={form.bed}
-									value={true}
+									value={'true'}
 								/>
 							}
 							label="Need a bed"
@@ -152,7 +152,7 @@ const Form = () => {
 							control={
 								<Checkbox
 									checked={form.car}
-									value={true}
+									value={'true'}
 									name="car"
 								/>
 							}

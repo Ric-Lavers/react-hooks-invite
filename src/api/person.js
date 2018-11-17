@@ -1,4 +1,4 @@
-import SERVER_URL  from './root'
+import {SERVER_URL}  from './root'
 
 export const postPerson = async (personObj) => {
 	try {
@@ -21,6 +21,7 @@ export const allPeople = async () => {
 		
 	} catch (error) {
 		console.error(error)
+		return []
 		/* show error snackbar */
 	}
 }

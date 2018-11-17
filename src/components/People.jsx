@@ -1,15 +1,14 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Tooltip, Grid, Paper } from '@material-ui/core'
+import { Tooltip, Paper } from '@material-ui/core'
 
 import { allPeople } from '../api/person'
-import { useFetch, styles } from './Messages'
 
 const toLocaleString = dateString => {
 	const localeString = new Date(dateString).toLocaleString()
 	return localeString.toString()
 }
 
-const People = ({}) => {
+const People = () => {
 
 	const [ people, setPeople ] = useState([])
 	useEffect( async () => {
@@ -34,11 +33,11 @@ const People = ({}) => {
 											title={`RSVP @ ${toLocaleString(person.created_on)}`}
 											placement="top"
 										> 
-											<span>{person.name}</span>
+											<span>{person.name}	</span>
 										</Tooltip>
 									</div>
-									<div >{person.email}</div>
-									<div >{person.phoneNumber}</div>
+									<div className="sensitive" >{person.email}</div>
+									<div className="sensitive" >{person.phoneNumber}</div>
 								</Fragment>
 							</Paper>
 						</div>

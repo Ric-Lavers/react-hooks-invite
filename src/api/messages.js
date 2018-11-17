@@ -1,4 +1,4 @@
-import SERVER_URL  from './root'
+import {SERVER_URL}  from './root'
 
 export const postMessage = async (messageObj) => {
 	try {
@@ -20,6 +20,6 @@ export const getAllMessages = async () => {
 		return data.json()
 	} catch (error) {
 		console.error(error)
-		return error
+		return []
 	}
 }

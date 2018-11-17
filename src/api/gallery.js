@@ -1,8 +1,8 @@
-import SERVER_URL  from './root'
-
+import {SERVER_URL}  from './root'
+console.log(SERVER_URL)
 export const postImgSrc = async (imgSrc) => {
 	try {
-		const data = await fetch(SERVER_URL + '/gallery/post-src', {
+		const data = await fetch(SERVER_URL + 'error/gallery/post-src', {
 			method: "POST",
 			body: JSON.stringify(imgSrc)
 		})
@@ -19,7 +19,8 @@ export const getAllImgSrc = async () => {
 		const data = await fetch(SERVER_URL+ '/gallery')
 		return data.json()
 	} catch (error) {
-		console.error(error)
-		return error
+		// console.error(error)
+		// throw new Error(error)
+		return []
 	}
 }
