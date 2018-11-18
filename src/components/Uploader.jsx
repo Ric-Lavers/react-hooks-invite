@@ -21,7 +21,7 @@ class Uploader extends Component {
       uploadedFile: files[0]
     });
 
-    files[0].size < 150//0001 
+    files[0].size < 1000001 
       ? this.handleImageUpload(files[0])
       : this.handleReject()
 

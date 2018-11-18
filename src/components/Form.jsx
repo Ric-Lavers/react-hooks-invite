@@ -88,9 +88,7 @@ const Form = ({ setSnackbar }) => {
 
 	const handleSubmit = async() => {
 		setLoading(true)
-console.log( Object.values(validated).every( i => i) )
 		if ( !Object.values(validated).every( i => i) ){
-			console.log( Object.values(validated) )
 			setSnackbar("Who dis?")
 			setLoading(false)
 			return
