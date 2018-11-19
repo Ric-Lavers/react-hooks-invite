@@ -8,6 +8,9 @@ This site is to build a Birthday Event site, experiment with the new React Hooks
 
 ## Passing function up to the modal from Uploader Pattern
 
+I wanted my modal to be a custom component that could be activated by passing a `setModal` function. The problem is that the confirm button needs to take a function so you can pass that up too, but then you can set a loading state for the component that you passing it from... you can have it in the modal I spose, but its not perfect as in this project i have some long server requests (from my free services) and I'd really like to put the component into a loading state instead. 
+Perhaps giving the modal Context is the answer here... of course given the size of the app there's way easier options, the point here is really to come up with a solution that will scale. 
+
 
 ## Suspense
 

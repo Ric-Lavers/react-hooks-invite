@@ -1,5 +1,6 @@
 import React, { Component, lazy } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { StripeProvider, Elements } from 'react-stripe-elements';
 import './App.css'
 import "./RyanFlorence/whatevs/index.css"
 import { Grid, Paper } from '@material-ui/core'
@@ -14,6 +15,7 @@ import Music from './components/Music'
 import Welcome from './components/Welcome'
 import Gallery from './components/Gallery'
 import Messages from './components/Messages'
+import Stripe from './components/Stripe'
 
 import Modal from './components/common/Modal'
 import ErrorSnackbar from './components/ErrorSnackbar'
@@ -21,6 +23,8 @@ import Spinner from './components/Spinner'
 
 // const Gallery = lazy(() => import('./components/Gallery'))
 // const Messages = lazy(() => import('./components/Messages') )
+
+const Publishable_key = 'pk_test_h6yLt71utyPK2SJMsPxCiju1'
 
 const theme = createMuiTheme({
   palette: {
@@ -102,6 +106,21 @@ class App extends Component {
                   
                 </Paper>
               </Grid>
+              {/* <Grid item xs={12}>
+                <Paper style={{ height: '100%' }} >
+                <StripeProvider apiKey={Publishable_key}>
+                <div className="example">
+                  <h1>React Stripe Elements Example</h1>
+                  <Elements>
+                    <Stripe/>
+                  </Elements>
+                </div>
+              </StripeProvider>
+                    
+                  
+                </Paper>
+              </Grid> */}
+              
               <Grid item xs={12} sm={6}>
                 <Paper style={{ height: '100%' }} >
                   <Details/>
