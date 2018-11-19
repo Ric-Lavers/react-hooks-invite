@@ -144,7 +144,7 @@ class App extends Component {
                     <Messages/>
                 </Paper>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                 <Paper style={{ height: '100%' }} >
                   <People/>
                 </Paper>

@@ -25,7 +25,7 @@ const People = () => {
 			<h2>Attendees</h2>
 			<div className="attendance-grid">
 					{people.map(person => 
-						<div key={person._id} style={{ width: '100%' }}>	
+						<div key={person._id} >	
 							<Paper >
 								<Fragment>
 									<div >

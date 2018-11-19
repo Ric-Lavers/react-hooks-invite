@@ -26,38 +26,46 @@
 .attendance-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 12px;
-  grid-gap: 8px;
+  /* padding: 12px; */
+  /* grid-gap: 16px; */
+  width: 100%;
 }
 
-
-.message {
+.message-container {
+  padding: 12px
+}
+.messages {
   display: grid;
   width: 100%;
-  grid-template-columns: 3fr 11fr 1fr;
+  grid-template-columns: 3fr 11fr;
   text-align: left;
-  margin-top: 12px;
   word-wrap: break-word; 
 }
-.message p {
+.messages p {
+  margin-left: 24px;
   overflow: hidden;
-  margin: 0 24px
+  font-size: 1.2em;
+  align-self: center;
+  list-style: none;
+  padding: 1em
 }
 .you {
-  grid-template-columns: 1fr 11fr 2fr;
+  grid-template-columns: 11fr 3fr;
   text-align: right;
 }
 
 .avatar {
+  text-shadow: 2px 2px black;
+  color: white;
   background-color: orange;
-  font-size: 1.5em;
-  border-radius: 1.5em;
+  font-size: 1.3em;
+  border-radius: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.7em;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  text-align: center;
+  margin-bottom: 1em;
+  margin-top: 1em
 }
 /* .message:first-child {
   width: 20%
@@ -140,13 +148,16 @@
     grid-template-columns: 1fr;
   }
   .message {
-    font-size: 13px;
+    font-size: 1em;
   }
   .avatar {
-    font-size: 12px;
+    font-size: 1.1em;
     border-radius: 1em;
     margin-top: 12px;
     margin-bottom: 12px;
+  }
+  .App {
+    padding: 4px;
   }
 }
 @media (max-width: 800px) {
