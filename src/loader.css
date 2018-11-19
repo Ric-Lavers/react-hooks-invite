@@ -68,4 +68,5 @@
 .aaa svg{
   fill: purple;
   width: 70%; height: 70%;
+  max-height: 300px;
 }
