@@ -43,6 +43,7 @@ const WriteMessage = ({postMsg, color, name}) => {
 	const [ value, setValue ] = useState('')
 	const [ tooLong, isTooLong ] = useState(false)
 
+
 	const handleSubmit = async (e) => {
 		e && e.preventDefault()
 		if ( !value.match(/()\w+/) ) {
@@ -121,7 +122,7 @@ console.log(messages)
 
 	}
 	const unknown =  'some guy'
-	const color = id ? colors[parseInt(id, 16) % 5 ] : 'orange'
+	const color = id ? colors[parseInt(id, 16) % 6 ] : 'orange'
 	const name = localStorage.getItem('name') || unknown
 
 	return(
