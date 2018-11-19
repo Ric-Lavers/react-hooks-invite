@@ -1,4 +1,4 @@
-import React, { Component, lazy, Suspense } from 'react'
+import React, { Component, lazy } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css'
 import "./RyanFlorence/whatevs/index.css"
@@ -12,13 +12,15 @@ import People from './components/People'
 import Uploader from './components/Uploader'
 import Music from './components/Music'
 import Welcome from './components/Welcome'
+import Gallery from './components/Gallery'
+import Messages from './components/Messages'
 
 import Modal from './components/common/Modal'
 import ErrorSnackbar from './components/ErrorSnackbar'
 import Spinner from './components/Spinner'
 
-const Gallery = lazy(() => import('./components/Gallery'))
-const Messages = lazy(() => import('./components/Messages') )
+// const Gallery = lazy(() => import('./components/Gallery'))
+// const Messages = lazy(() => import('./components/Messages') )
 
 const theme = createMuiTheme({
   palette: {
@@ -120,9 +122,7 @@ class App extends Component {
               </Grid>
               <Grid item xs={12}>
                 <Paper style={{ height: '100%' }} >
-                  <Suspense fallback={<Spinner/>} >
                     <Messages/>
-                  </Suspense>
                 </Paper>
               </Grid>
               <Grid item xs={12}>

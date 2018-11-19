@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef, Suspense } from 'react'
+import React, { Fragment, useState, useEffect, useRef } from 'react'
 import { Tooltip, TextField, Button } from '@material-ui/core'
 
 import { useFetch } from '../hooks/hooks'
@@ -83,7 +83,6 @@ const WriteMessage = ({postMsg, color, name}) => {
 			<p className={`too-long ${tooLong ? '' : 'hide'}`}>
 				Dude, too long and boring.
 			</p>
-			<Suspense fallback={ <Spinner/> }>
 				<span>
 					<Button
 						type="submit"
@@ -96,7 +95,6 @@ const WriteMessage = ({postMsg, color, name}) => {
 						Send
 					</Button>
 				</span>
-			</Suspense>
 		</form>
 	)
 }

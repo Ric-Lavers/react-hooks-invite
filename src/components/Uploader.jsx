@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react'
+import React, { Component } from 'react'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
@@ -76,7 +76,6 @@ class Uploader extends Component {
     let { isLoading } = this.props;
 
     return (
-      <Suspense fallback={ <Spinner /> }>
         <div className="Uploader">
           <Dropzone
             className="dropzone"
@@ -91,7 +90,6 @@ class Uploader extends Component {
           </Dropzone>
         {isLoading && "is loading ...."}
         </div>
-      </Suspense>
     );
   }
 }
