@@ -147,7 +147,7 @@ console.log(messages)
 							className={`message ${id === msg.personId? 'you':''}`}
 						>
 
-						{(name === 'You') &&
+						{(id === msg.personId) &&
 							<Fragment>
 								<div key={`key_${msg._id}`}/>
 								<p style={styles.li}>{msg.message}</p>
@@ -161,7 +161,7 @@ console.log(messages)
 								<div 
 									className="avatar"
 									style={msg.personId
-										? { backgroundColor: colors[parseInt(msg.personId, 16) % 5 ]}
+										? { backgroundColor: colors[parseInt(msg.personId, 16) % 6 ]}
 										: {}
 									}
 								> <p>
