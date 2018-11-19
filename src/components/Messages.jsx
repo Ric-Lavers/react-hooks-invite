@@ -100,7 +100,8 @@ const WriteMessage = ({postMsg, color, name}) => {
 }
 
 const Messages = () => {
-	const [messages, updateData] = useFetch(getAllMessages, [{}])
+	const [messages, updateData] = useFetch(getAllMessages, [])
+console.log(messages)
 	const id = localStorage.getItem('personId')
 
 	const handlePostMsg = async (value) => {
