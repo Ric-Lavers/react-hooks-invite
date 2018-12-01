@@ -16,6 +16,7 @@ import Welcome from './components/Welcome'
 import Gallery from './components/Gallery'
 import Messages from './components/Messages'
 import Stripe from './components/Stripe'
+import CountDown from './components/CountDown'
 
 import Modal from './components/common/Modal'
 import ErrorSnackbar from './components/ErrorSnackbar'
@@ -106,20 +107,22 @@ class App extends Component {
                   
                 </Paper>
               </Grid>
-              {/* <Grid item xs={12}>
-                <Paper style={{ height: '100%' }} >
-                <StripeProvider apiKey={Publishable_key}>
+              <Grid item xs={12}>
+                <Paper style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                {/* <StripeProvider apiKey={Publishable_key}>
                 <div className="example">
-                  <h1>React Stripe Elements Example</h1>
+                  
                   <Elements>
                     <Stripe/>
+                    
                   </Elements>
                 </div>
               </StripeProvider>
                     
-                  
+                   */}
+                   <CountDown/>
                 </Paper>
-              </Grid> */}
+              </Grid>
               
               <Grid item xs={12} sm={6}>
                 <Paper style={{ height: '100%' }} >
