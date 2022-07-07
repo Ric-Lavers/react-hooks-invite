@@ -6,7 +6,7 @@
     "@material-ui/core": "^3.3.2",
     "@reach/alert": "^0.1.1",
     "cloudinary-react": "^1.0.6",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "react": "^16.7.0-alpha",
     "react-dom": "^16.7.0-alpha",
     "react-dropzone": "^7.0.1",
